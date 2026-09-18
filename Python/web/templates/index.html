@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheap Fiber Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div>
+          <h1>Cheap Fiber Analyzer</h1>
+          <p>STM32F207VCT6 · ADC / DAC / RS485 monitor</p>
+        </div>
+      </div>
+
+      <div class="system-status" id="connection">
+        <span class="dot"></span>Đang kết nối...
+      </div>
+    </header>
+
+    <section class="overview-grid">
+      <article class="card">
+        <div class="label">ADC CHANNEL 12</div>
+        <strong id="adc12">-</strong>
+        <span>raw / 4095</span>
+      </article>
+
+      <article class="card">
+        <div class="label">ADC CHANNEL 13</div>
+        <strong id="adc13">-</strong>
+        <span>raw / 4095</span>
+      </article>
+
+      <article class="card">
+        <div class="label">DAC CHANNEL 1</div>
+        <strong id="dac1">-</strong>
+        <span>raw</span>
+      </article>
+
+      <article class="card">
+        <div class="label">DAC CHANNEL 2</div>
+        <strong id="dac2">-</strong>
+        <span>raw</span>
+      </article>
+    </section>
+
+    <section class="status-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>System Status</h2>
+        </div>
+
+        <div class="status-row">
+          <span>STM32</span>
+          <strong id="stm32Status">DISCONNECTED</strong>
+        </div>
+        <div class="status-row">
+          <span>ADC</span>
+          <strong id="adcStatus">UNKNOWN</strong>
+        </div>
+        <div class="status-row">
+          <span>DAC</span>
+          <strong id="dacStatus">UNKNOWN</strong>
+        </div>
+        <div class="status-row">
+          <span>USART3 / RS485</span>
+          <strong id="serialStatus">IDLE</strong>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Latest Measurement</h2>
+        </div>
+
+        <div class="measurement">
+          <div>
+            <span>ADC12</span>
+            <strong id="adc12Voltage">- V</strong>
+          </div>
+          <div>
+            <span>ADC13</span>
+            <strong id="adc13Voltage">- V</strong>
+          </div>
+        </div>
+
+        <p class="note">
+          Điện áp quy đổi đang dùng VDDA = 3.3 V để hiển thị tham khảo.
+          Giá trị raw từ STM32 mới là dữ liệu gốc.
+        </p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Measurement History</h2>
+        <span class="small" id="updated">-</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>ADC12</th>
+              <th>ADC13</th>
+              <th>DAC1</th>
+              <th>DAC2</th>
+              <th>SOURCE</th>
+            </tr>
+          </thead>
+          <tbody id="measurements">
+            <tr>
+              <td colspan="6" class="empty">Chưa có dữ liệu đo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Event History</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>EVENT</th>
+              <th>VALUE</th>
+              <th>DETAIL</th>
+            </tr>
+          </thead>
+          <tbody id="events">
+            <tr>
+              <td colspan="4" class="empty">Chưa có sự kiện</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <span>Cheap Fiber Analyzer · Web V1</span>
+      <span>Flask + SQLite</span>
+    </footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
